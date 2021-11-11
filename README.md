@@ -21,7 +21,7 @@
     </b>
 </pre>
 ---
-### **--- requirements <---** :
+### **--- requirements ---** :
 <pre><b>
     requests 
     terminaltables
