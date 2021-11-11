@@ -1,6 +1,15 @@
 def execute(prompt:str):
     from colorama import Fore as F, Style as S
-    import requests
+    while True:
+        try:
+            import requests
+            from colorama import Fore as F,Style as S,Back as B 
+            break
+        except ModuleNotFoundError as iE:
+            import time
+            import installer as inst
+            inst.install([iE.name])
+            time.sleep(5)
 
     def reqq(method:str,destination:str):
         if method == 'get':
