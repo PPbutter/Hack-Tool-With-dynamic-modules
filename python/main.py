@@ -1,6 +1,7 @@
 while True:
     try:
         import os
+        import random
         import importlib
         import mrkool as mk
         import terminaltables
@@ -24,8 +25,12 @@ class collect:
 
         for b in dir(MOD):
             if b not in shiz:
-                name = dest.split(".")[1]
-                mods.append(MOD.__getattribute__(b))
+                if b == "DESCRIPTION":
+                    name = dest.split(".")[1]
+                    mods.append(MOD.__getattribute__(b))
+                elif b == "execute":
+                    name = dest.split(".")[1]
+                    mods.append(MOD.__getattribute__(b))
         
         return [MOD,mods,name]
 
@@ -46,6 +51,7 @@ for a,b,file in os.walk("./modules"):
             modules.append(p[0])
             modFunctions.append(p[1])
             modNames.append(p[2])
+
 
 c=0
 cc = 0
@@ -81,6 +87,9 @@ for i in commands:
 
 newLines = f"{F.CYAN}"
 
+commandsAndDesc = commandsAndDesc.__add__(f"{F.CYAN}{F.WHITE}help : gets help on a specific command{F.CYAN}\n{F.WHITE}Usage: help <Command>{F.CYAN}\n{F.WHITE}Example: help {modNames[random.randint(0,len(modNames)-1)]}{F.CYAN}\n\n\n\n\n")
+
+
 for i in range(0,len(commands)):
     newLines = newLines + "\n\n\n"
     commandsAndDesc = commandsAndDesc.__add__(f"{F.CYAN}{F.WHITE}{commands[i]} : {commandsDesc[i]}{F.CYAN}\n\n\n\n\n")
@@ -100,27 +109,36 @@ while True:
         if inpu == "help":
             print(f"{F.CYAN}")
             print(helpTable)
+
         
         elif inpu == "exit":
-            exit(f"\n{F.WHITE}[{F.LIGHTYELLOW_EX}!{F.WHITE}] bye-bye {F.LIGHTCYAN_EX}:){F.WHITE}\n")
+            exit(f"\n{F.WHITE}[{F.LIGHTYELLOW_EX}!{F.WHITE}] bye bye {F.LIGHTCYAN_EX}:){F.WHITE}\n")
         
         elif inpu != "help":
+
             for a in modDic:
-                    if inpu.startswith(a):
-                        if len(inpu.split(" ")) == 1:
-                            mk.executer2000.run(modDic[a]['module'],modDic[a]['func'][0](inpu))
-                        elif len(inpu.split(" ")) >= 2:
-                            if inpu.split(" ")[1] == "help":
-                                if inpu.split(" ") >= 3:
-                                    pp = mk.executer2000.run(modDic[a]['module'],modDic[a]['desc'][0]())
-                                    print(f"\n{S.BRIGHT}[{F.LIGHTYELLOW_EX}!{F.WHITE}] {a} DESCRIPTION: {pp}\n")
-                            if inpu.split(" ")[1] != "help":
-                                pp = mk.executer2000.run(modDic[a]['module'],modDic[a]['func'][0](inpu))
-                        else:
-                            print(f"\n{F.WHITE}{S.BRIGHT}[{F.LIGHTRED_EX}X{F.WHITE}] Err Please supply at least 1 argument\n")
-        else:
-            print(f"{F.WHITE}{S.BRIGHT}[{F.LIGHTRED_EX}X{F.WHITE}] Err command not found: {F.LIGHTYELLOW_EX}{prompt}{F.WHITE}\n\n")
+                if inpu.startswith(a):
+                    if len(inpu.split(" ")) >= 2:
+                        mk.executer2000.run(modDic[a]['module'],modDic[a]['func'][0](inpu))
+
+                elif len(inpu.split(" ")) >= 2:
+                    if inpu.split(" ")[1] == a:
+                        if inpu.startswith("help "):
+                            if len(inpu.split(" ")) == 2:
+                                pp = mk.executer2000.run(modDic[a]['module'],modDic[a]['desc'][0]())
+                                pa = 0
+                                for i in f"{pp}".split(f"{F.CYAN}\n{F.WHITE}"):
+                                    if pa == 0:
+                                        print(f"{S.BRIGHT}[{F.LIGHTYELLOW_EX}!{F.WHITE}] Description: {i}\n")
+                                    else:
+                                        print(f"{S.BRIGHT}[{F.LIGHTYELLOW_EX}!{F.WHITE}] {i}\n")
+                                    pa+=1
+                            #print(f"\n{S.BRIGHT}[{F.LIGHTYELLOW_EX}!{F.WHITE}] {a} DESCRIPTION: {pp}\n")
+                else:
+                    print(f"{F.WHITE}{S.BRIGHT}[{F.LIGHTRED_EX}X{F.WHITE}] Err command not found: {F.LIGHTYELLOW_EX}{inpu}{F.WHITE}\n")
+                    break
+        #else:
+        #    print(f"{F.WHITE}{S.BRIGHT}[{F.LIGHTRED_EX}X{F.WHITE}] Err command not found: {F.LIGHTYELLOW_EX}{inpu}{F.WHITE}\n\n")
     
     except KeyboardInterrupt as keyInterupt:
-
         print(f"\n\n{F.WHITE}{S.BRIGHT}[{F.YELLOW}!{F.WHITE}] remember if your trying to exit type the command exit :)\n{S.NORMAL}")            

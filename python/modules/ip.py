@@ -55,4 +55,4 @@ def execute(prompt:str):
 
 def DESCRIPTION():
     from colorama import Fore as F,Style as S 
-    return f'get data on the targets IP addr{F.CYAN}\n{F.WHITE}Usage: ip <Target IP>{F.CYAN}\n{F.WHITE}example: ip 24.60.200.10'
+    return f'get data on the targets IP addr{F.CYAN}\n{F.WHITE}Usage: ip <Target IP> | ip < - > {F.CYAN}\n{F.WHITE}example: ip 24.60.200.10 | ip -'

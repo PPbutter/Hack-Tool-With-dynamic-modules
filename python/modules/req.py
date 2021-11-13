@@ -13,28 +13,27 @@ def execute(prompt:str):
 
     def reqq(method:str,destination:str):
         if method == 'get':
-            try:
-                req = requests.get("https://"+destination)
-                return req
-            except:
-                req = requests.get("http://"+destination)
-                return req
-
+            req = requests.get(destination)
+            return req
     def handle(dat):
             print(f"\n{S.BRIGHT}[{F.GREEN}${F.WHITE}] URL:{F.LIGHTGREEN_EX} {dat.url} {F.WHITE}")
             print(f"\n{S.BRIGHT}[{F.LIGHTCYAN_EX}${F.WHITE}] STATUS CODE:{F.LIGHTCYAN_EX} {dat.status_code} {dat.reason} {F.WHITE}")
-            if len(dat.text) > 2000:
-                km = input(f"\n{S.BRIGHT}[{F.BLUE}?{F.WHITE}] hmm. . . it appears the data from the website is around ({len(dat.text)}) characters would you like to save it to a file insted (Y/N)?: ")
+            if len(dat.text) >= 2000:
+                
+                km = input(f"\n{S.BRIGHT}[{F.BLUE}?{F.WHITE}] the data from the website is around ({len(dat.text)}) characters long\n[{F.BLUE}?{F.WHITE}] would you like to save it to a file insted (Y/N)?: ")
                 if km.lower() == "y":
                     pp = input("what would you like to save the file as (with extention): ")
                     fa = open(pp,"w")
                     fa.write(dat.text)
                     fa.close()
-    
+                elif km.lower() == "n":
+                    print(f"{S.BRIGHT}[{F.YELLOW}!{F.WHITE}] ok the text will not be displayed")
+            else:
+                print(f"\n{dat.text}\n")
     try:
         m = prompt.split(" ")
-        print(m,len(m))
         if len(m) == 3:
+            print(m,len(m))
             re = reqq(m[1],m[2])
             handle(re)
         elif m[1] == "":

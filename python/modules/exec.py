@@ -9,7 +9,8 @@ def execute(prompt:str):
             #pass
             z = z.__add__(a+" ")
         r+=1
-    #print(z)
+    print(f"{S.BRIGHT}[{F.YELLOW}!{F.WHITE}] executing: {F.CYAN}{z}{F.WHITE}")
+    print("")
     os.system(z)
     print(F.RESET,S.NORMAL)
 
