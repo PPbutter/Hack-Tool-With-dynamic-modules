@@ -3,7 +3,6 @@
 ### **basic file setup**
 
 ```python
-<b>
 def execute(prompt:str)
     #       ^^^^^^
     #takes in prompt data in the form of a string 
@@ -13,7 +12,6 @@ def execute(prompt:str)
 
 def DESCRIPTION():
     return "return a description of your code (make sure to add a smiley for brownie points) :)"
-</b>
 ```
 
 
