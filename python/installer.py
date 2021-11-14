@@ -1,8 +1,6 @@
 def execute():
     pass
 
-def install(packages:list):
+def install(package:str):
     import pip
-    stat = "install"
-    for i in packages:
-        pip.main([stat,i])
+    pip.main(["install",package])

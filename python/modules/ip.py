@@ -1,6 +1,14 @@
 def execute(prompt:str):
-    import requests
-    from colorama import Fore as F,Style as S
+    while True:
+        try:
+            import requests
+            from colorama import Fore as F,Style as S
+            break
+        except ModuleNotFoundError as mnfe:
+            import time
+            import modules.installer as inst
+            inst.install(mnfe.name)
+            time.sleep(5)
     ipApi = "http://ip-api.com/json/"
     data = requests.get(ipApi)
     red = F.RED

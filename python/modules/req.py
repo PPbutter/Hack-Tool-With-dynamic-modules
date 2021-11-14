@@ -8,7 +8,7 @@ def execute(prompt:str):
         except ModuleNotFoundError as iE:
             import time
             import installer as inst
-            inst.install([iE.name])
+            inst.install(iE.name)
             time.sleep(5)
 
     def reqq(method:str,destination:str):
@@ -33,7 +33,6 @@ def execute(prompt:str):
     try:
         m = prompt.split(" ")
         if len(m) == 3:
-            print(m,len(m))
             re = reqq(m[1],m[2])
             handle(re)
         elif m[1] == "":
@@ -44,9 +43,9 @@ def execute(prompt:str):
         
     except IndexError:
         if len(m) >= 3:
-            print(f"\n{F.WHITE}{S.BRIGHT}[{F.LIGHTRED_EX}X{F.WHITE}] Err sufficient arguments: there where {len(m)} too many arguments supplied out of 2\n")
+            print(f"\n{F.WHITE}{S.BRIGHT}[{F.LIGHTRED_EX}X{F.WHITE}] Err sufficient arguments: there where too many arguments supplied. Expected 2 got {len(m)}\n")
         else:
-            print(f"\n{F.WHITE}{S.BRIGHT}[{F.LIGHTRED_EX}X{F.WHITE}] Err sufficient arguments: there where only {len(m)} argument supplied out of 3\n")            #prompt,prompt.split(" ")[1]
+            print(f"\n{F.WHITE}{S.BRIGHT}[{F.LIGHTRED_EX}X{F.WHITE}] Err sufficient arguments: there where only {len(m)} argument supplied out of 2\n")            #prompt,prompt.split(" ")[1]
     
     except BaseException:
         print(f"{F.WHITE}{S.BRIGHT}[{F.LIGHTRED_EX}X{F.WHITE}] Err Please supply at least 1 argument\n")
